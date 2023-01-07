@@ -1,5 +1,6 @@
 import { env } from 'process';
 import { Sequelize } from 'sequelize-typescript';
+import { User } from '../modules/user/user.entity';
 
 export const databaseProviders = [
   {
@@ -13,7 +14,7 @@ export const databaseProviders = [
         password: env.PG_PASSWORD,
         database: env.PG_DB,
       });
-    //   sequelize.addModels([Cat]);
+      sequelize.addModels([User]);
       await sequelize.sync({ alter : true });
       return sequelize;
     },
