@@ -1,7 +1,8 @@
-import Joi from "joi";
+import { ObjectSchema } from "joi";
+import joi from 'joi';
 
-export const signupSchema = Joi.object({
-    name : Joi.string().required(),
-    email : Joi.string().email().required(),
-    password : Joi.string().min(8)
-});
+// export const signupSchema : ObjectSchema = joi.object({
+//     name : joi.string().required(),
+//     email : joi.string().email().required(),
+//     password : joi.string().min(8)
+// });
