@@ -6,5 +6,7 @@ export const messages = {
     LOGIN_SUCCESSFUL : "Login was successful.",
     INVALID_USER : "Invalid user provided.",
     ALREADY_FOLLOWING : "You are already following this user.",
-    USER_FOLLOWED : "You have successfully followed this user."
+    USER_FOLLOWED : "You have successfully followed this user.",
+    NOT_FOLLOWING : "You are not following this user.",
+    USER_UNFOLLOWED : "You have successfully unfollowed this user."
 }

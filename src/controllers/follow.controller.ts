@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Post, Req, Res, UsePipes } from '@nestjs/common';
 import { FollowService } from '../services/follow.service';
 import { Response, Request } from 'express';
 import { Validator } from '../utils/validator';
@@ -12,7 +12,14 @@ export class FollowController{
     @Post('/')
     @UsePipes(new Validator(followSchema))
     async follow(@Body() body : FollowPayloadType, @Req() req : Request, @Res() res : Response) : Promise<Response> {
-        let serviceInvocation = await this.followService.follow(body, req['user']);
+        let serviceInvocation = await this.followService.followService(body, req['user']);
+        return res.status(serviceInvocation.status).json({...serviceInvocation});
+    }
+
+    @Delete('/')
+    @UsePipes(new Validator(followSchema))
+    async unfollow(@Body() body : FollowPayloadType, @Req() req : Request, @Res() res : Response) : Promise<Response> {
+        let serviceInvocation = await this.followService.unfollowService(body, req['user']);
         return res.status(serviceInvocation.status).json({...serviceInvocation});
     }
 }
