@@ -16,7 +16,7 @@ export class AuthMiddleware implements NestMiddleware {
     try{
         let validated = validate(auth);
         let user = await User.findOne({ where : { id : validated.id } });
-        req['user'] = user;
+        req['user'] = user.dataValues;
         next();
     }catch(error){
         console.error(error)

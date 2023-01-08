@@ -1,7 +1,8 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { FollowService } from '../../services/follow.service';
 import { FollowController } from "../../controllers/follow.controller";
 import { followProviders } from './follow.providers';
+import { AuthMiddleware } from '../../middlewares/auth.middleware';
 
 @Module({
     imports : [],
@@ -9,4 +10,8 @@ import { followProviders } from './follow.providers';
     providers : [FollowService, ...followProviders]
 })
 
-export class FollowModule {}
+export class FollowModule implements NestModule{
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(AuthMiddleware).forRoutes(FollowController);
+    }
+}

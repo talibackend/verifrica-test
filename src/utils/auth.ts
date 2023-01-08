@@ -10,8 +10,9 @@ export const generate = (user : User) : string =>{
     return jwt.sign(user, env.JWT_SECRET);
 }
 
-export const validate = (token : string) : { id : number, email : string, password : string, name : string } =>{
-    return JSON.parse(jwt.verify(token, env.JWT_SECRET) as string);
+export const validate = (token : string) : any =>{
+    let verified = jwt.verify(token, env.JWT_SECRET);
+    return verified;
 }
 
 export const encrypt = async (string : string) : Promise<string> =>{
