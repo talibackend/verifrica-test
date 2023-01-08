@@ -1,6 +1,6 @@
 import { User } from './user.entity';
 
-export const catsProviders = [
+export const usersProviders = [
   {
     provide: 'USER_REPOSITORY',
     useValue: User,
