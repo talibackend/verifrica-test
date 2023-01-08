@@ -1,7 +1,19 @@
-import { Body, Controller, Patch, Post, Req, Res, UsePipes, Delete, Get, Param } from "@nestjs/common";
+import { Body, Controller, Patch, Post, Req, Res, UsePipes, Delete, Get, Param, Query } from "@nestjs/common";
 import { PostService } from "src/services/post.service";
-import { CreatePostPayloadType, EditPostPayloadType, DeletePostPayloadType, GetPostPayloadType } from "src/types/post.types";
-import { createPostSchema, editPostSchema, deletePostSchema, getPostSchema } from "src/utils/schemas/post.schemas";
+import { 
+    CreatePostPayloadType, 
+    EditPostPayloadType, 
+    DeletePostPayloadType, 
+    GetPostPayloadType,
+    GetPostsPayloadType
+} from "src/types/post.types";
+import { 
+    createPostSchema, 
+    editPostSchema, 
+    deletePostSchema, 
+    getPostSchema,
+    getPostsSchema
+} from "src/utils/schemas/post.schemas";
 import { Validator } from 'src/utils/validator';
 import { Request, Response } from 'express';
 
@@ -34,6 +46,13 @@ export class PostController {
     @UsePipes(new Validator(getPostSchema))
     async getPost(@Param() params : GetPostPayloadType, @Req() req : Request, @Res() res : Response) : Promise<Response> {
         let serviceInvocation = await this.postService.getPostService(params, req['user']);
+        return res.status(serviceInvocation.status).json({...serviceInvocation});
+    }
+
+    @Get('/')
+    @UsePipes(new Validator(getPostsSchema))
+    async getPosts(@Query() query : GetPostsPayloadType, @Req() req : Request, @Res() res : Response) : Promise<Response> {
+        let serviceInvocation = await this.postService.getPostsService(query, req['user']);
         return res.status(serviceInvocation.status).json({...serviceInvocation});
     }
 }
