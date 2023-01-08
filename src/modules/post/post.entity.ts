@@ -15,4 +15,10 @@ export class Post extends Model {
 
     @Column({ type : DataType.INTEGER, defaultValue : 0 })
     views : number
+
+    @Column({ type : DataType.STRING, allowNull : false })
+    title : string
+
+    @Column({ type : DataType.STRING, allowNull : false })
+    slug : string
 }
