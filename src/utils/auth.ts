@@ -4,8 +4,6 @@ import { env } from 'process';
 import { hash, compare } from 'bcrypt';
 
 export const generate = (user : User) : string =>{
-    console.log(user);
-    console.log(env);
     if(user.password){
         delete user.password;
     }
