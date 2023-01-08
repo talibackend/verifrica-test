@@ -3,13 +3,14 @@ import { Request, Response, NextFunction } from 'express';
 import { validate } from '../utils/auth';
 import { UnauthorizedException } from '@nestjs/common';
 import { User } from '../modules/user/user.entity';
+import { messages } from '../utils/consts';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     let auth = req.headers['authorization'];
     if(!auth){
-        throw new UnauthorizedException("Unauthorized request.");
+        throw new UnauthorizedException(messages.UNAUTHORIZED);
     }
     auth = auth.replace('Bearer ', '');
     try{
@@ -19,7 +20,7 @@ export class AuthMiddleware implements NestMiddleware {
         next();
     }catch(error){
         console.error(error)
-        throw new UnauthorizedException("Unauthorized request.");
+        throw new UnauthorizedException(messages.UNAUTHORIZED);
     }
   }
 }
