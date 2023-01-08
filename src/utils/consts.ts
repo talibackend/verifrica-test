@@ -10,5 +10,6 @@ export const messages = {
     NOT_FOLLOWING : "You are not following this user.",
     USER_UNFOLLOWED : "You have successfully unfollowed this user.",
     DUPLICATE_POST : "You already have a post with the title, please try something new.",
-    POST_CREATED : "Post has been successfully created"
+    POST_CREATED : "Post has been successfully created.",
+    POST_EDITED : "Post has been successfully updated."
 }
