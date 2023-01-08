@@ -17,7 +17,7 @@ export class GetPostPayloadType{
     slug : number
 }
 
-enum PostedDirection {
+export enum PostedDirection {
     lte = 'lte',
     gte = 'gte'
 }
@@ -25,7 +25,7 @@ enum PostedDirection {
 export class GetPostsPayloadType{
     views? : boolean
     posted? : string
-    posted_direction? : PostedDirection = PostedDirection.gte
-    offset? : number = 0
-    limit? : number = 10
+    posted_direction? : PostedDirection
+    offset? : number
+    limit? : number
 }

@@ -12,7 +12,8 @@ import { ApiResponseJsonType } from 'src/types/api.types';
 import { messages } from 'src/utils/consts';
 import { generateSlug } from 'src/utils/general';
 import { Follow } from 'src/modules/follow/follow.entity';
-import { Op } from 'sequelize';
+import { Op, Order } from 'sequelize';
+import { PostedDirection } from 'src/types/post.types';
 
 @Injectable()
 export class PostService{
@@ -89,7 +90,7 @@ export class PostService{
         }
 
         searchPost = searchPost.dataValues;
-        searchPost['user'] = (await this.UserRepo.findOne({attributes : ['name', 'email'], where : { id : searchPost.user_id }})).dataValues;
+        searchPost['user'] = (await this.UserRepo.findOne({attributes : ['name', 'email', 'id'], where : { id : searchPost.user_id }})).dataValues;
 
         if(searchPost.user_id !== user.id){
             await this.PostRepo.update({ views : searchPost.views + 1 }, { where : { id : searchPost.id } });
@@ -99,26 +100,43 @@ export class PostService{
     }
 
     async getPostsService(payload : GetPostsPayloadType, user : User) : Promise<ApiResponseJsonType> {
-        const { views, posted, posted_direction, offset, limit } = payload;
+        let { views, posted, posted_direction, offset, limit } = payload;
+
+        if(!limit){
+            limit = 10;
+        }
+
+        if(!offset){
+            offset = 0;
+        }
+
+        if(!posted_direction){
+            posted_direction = PostedDirection.gte;
+        }
 
         let peopleFollowing : Array<Follow> | Array<number> = await this.FollowRepo.findAll({ where : { follower : user.id } });
         peopleFollowing = peopleFollowing.map((p)=>{ return p.followed });
 
-        let options = { where : { user_id : { [Op.in] : peopleFollowing } }, order : {id : 'desc'}, limit, offset };
+        let where = { user_id : { [Op.in] : peopleFollowing } };
+        let order : Order = [['id', 'desc']];
 
         if(views){
-            options.order['views'] = 'desc';
+            order.push(['views', 'desc']);
         }
+
         if(posted){
-            options.where['createdAt'] = {[Op.gte] : posted}; 
+            where['createdAt'] = {[Op.gte] : posted}; 
             if(posted_direction !== 'gte'){
-                options.where['createdAt'] = {[Op.lte] : posted}; 
+                where['createdAt'] = {[Op.lte] : posted}; 
             }
         }
 
-        console.log(options);
+        let posts : Array<Post> = await this.PostRepo.findAll({ where, order, limit, offset });
 
-        let posts : Array<Post> = await this.PostRepo.findAll(options);
+        for(let i = 0; i < posts.length; i++){
+            let post = posts[i];
+            posts[i]['user'] = (await this.UserRepo.findOne({ attributes : ['name', 'email', 'id'], where : { id : post.user_id } })).dataValues
+        }
 
         return { status : HttpStatus.OK, message : "Fetched", body : { posts } };
     }

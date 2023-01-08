@@ -23,7 +23,7 @@ export const getPostSchema : ObjectSchema = joi.object({
 export const getPostsSchema : ObjectSchema = joi.object({
     views : joi.boolean().default(true).optional(),
     posted : joi.date().optional(),
-    posted_direction : joi.string().valid('gte', 'lte').optional().default('gte'),
-    offset : joi.number().optional().default(0),
-    limit : joi.number().optional().default(10)
+    posted_direction : joi.string().valid('gte', 'lte').optional(),
+    offset : joi.number().optional(),
+    limit : joi.number().optional()
 });
