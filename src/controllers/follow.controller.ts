@@ -11,9 +11,8 @@ export class FollowController{
 
     @Post('/')
     @UsePipes(new Validator(followSchema))
-    async follow(@Body() body : FollowPayloadType, @Req() req : Request){
-        console.log(req[`user`]);
-        console.log(body);
-        return { hello : "world..." };
+    async follow(@Body() body : FollowPayloadType, @Req() req : Request, @Res() res : Response) : Promise<Response> {
+        let serviceInvocation = await this.followService.follow(body, req['user']);
+        return res.status(serviceInvocation.status).json({...serviceInvocation});
     }
 }
