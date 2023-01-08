@@ -11,7 +11,8 @@ export class UserController{
     @Post('/signup')
     @UsePipes(new Validator(signupSchema))
     async signup(@Body() body : SignupPayloadType, @Res() res : Response) : Promise<Response> {
-        return await this.userService.signupService(body, res);
+        let serviceInvocation = await this.userService.signupService(body);
+        return await res.status(serviceInvocation.status).json({...serviceInvocation});
     }
 
 }
