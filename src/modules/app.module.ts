@@ -4,9 +4,10 @@ import { Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';
 import { UserModule } from './user/user.module';
 import { FollowModule } from './follow/follow.module';
+import { PostModule } from './post/post.module';
 
 @Module({
-  imports: [DatabaseModule, UserModule, FollowModule],
+  imports: [DatabaseModule, UserModule, FollowModule, PostModule],
   controllers: [],
   providers: [],
 })
