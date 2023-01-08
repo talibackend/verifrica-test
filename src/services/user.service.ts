@@ -7,8 +7,8 @@ import { Response } from 'express';
 @Injectable()
 export class UserService {
     constructor(@Inject('USER_REPOSITORY') private UserRepo : typeof User ){}
-    async signupService(payload : SignupPayloadType) : Promise<ApiResponseJsonType> {
-        console.log(await this.UserRepo.findAll());
-        return await { status : 200, message : "Hello world" };
+    
+    async signupService(payload : SignupPayloadType, res : Response) : Promise<Response> {
+        return await res.status(200).json({ hello : "world" });
     }
 }
