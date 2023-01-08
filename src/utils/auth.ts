@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
-// import { SignupPayloadType } from '../types/user.types';
 import { User } from '../modules/user/user.entity';
 import { env } from 'process';
+import { hash, compare } from 'bcrypt';
 
 export const generate = (user : User) : string =>{
     if(user.password){
@@ -12,4 +12,12 @@ export const generate = (user : User) : string =>{
 
 export const validate = (token : string) : { id : number, email : string, password : string, name : string } =>{
     return JSON.parse(jwt.verify(token, env.JWT_SECRET) as string);
+}
+
+export const encrypt = async (string : string) : Promise<string> =>{
+    return await hash(string, 10);
+}
+
+export const decrypt = async (string : string, hash : string) : Promise<boolean> =>{
+    return await compare(string, hash);
 }
