@@ -8,3 +8,7 @@ export class EditPostPayloadType{
     title? : string
     content? : string
 }
+
+export class DeletePayloadType{
+    id : number
+}
