@@ -9,6 +9,10 @@ export class EditPostPayloadType{
     content? : string
 }
 
-export class DeletePayloadType{
+export class DeletePostPayloadType{
     id : number
+}
+
+export class GetPostPayloadType{
+    slug : number
 }

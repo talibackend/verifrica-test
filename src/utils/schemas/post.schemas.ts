@@ -15,3 +15,7 @@ export const editPostSchema : ObjectSchema = joi.object({
 export const deletePostSchema : ObjectSchema = joi.object({
     id : joi.number().required()
 });
+
+export const getPostSchema : ObjectSchema = joi.object({
+    slug : joi.string().required()
+});

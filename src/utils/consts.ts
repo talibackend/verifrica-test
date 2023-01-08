@@ -12,5 +12,7 @@ export const messages = {
     DUPLICATE_POST : "You already have a post with the title, please try something new.",
     POST_CREATED : "Post has been successfully created.",
     POST_EDITED : "Post has been successfully updated.",
-    POST_DELETED : "Post has been successfully deleted."
+    POST_DELETED : "Post has been successfully deleted.",
+    NOT_FOUND : "Resource not found.",
+    POST_FETCHED : "Post has been successfully fetched."
 }

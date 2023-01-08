@@ -1,7 +1,7 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Post } from '../modules/post/post.entity';
 import { User } from '../modules/user/user.entity';
-import { CreatePostPayloadType, EditPostPayloadType, DeletePayloadType } from 'src/types/post.types';
+import { CreatePostPayloadType, EditPostPayloadType, DeletePostPayloadType, GetPostPayloadType } from 'src/types/post.types';
 import { ApiResponseJsonType } from 'src/types/api.types';
 import { messages } from 'src/utils/consts';
 import { generateSlug } from 'src/utils/general';
@@ -49,7 +49,7 @@ export class PostService{
         return { status : HttpStatus.OK, message : messages.POST_EDITED, body : { post : searchPost } };
     }
 
-    async deletePostService(payload : DeletePayloadType, user : User) : Promise<ApiResponseJsonType> {
+    async deletePostService(payload : DeletePostPayloadType, user : User) : Promise<ApiResponseJsonType> {
         const { id } = payload;
 
         let searchPost = await this.PostRepo.findOne({ where : { id } });
@@ -65,5 +65,26 @@ export class PostService{
         await this.PostRepo.destroy({ where : { id } });
 
         return { status : HttpStatus.OK, message : messages.POST_DELETED }
+    }
+
+    async getPostService(payload : GetPostPayloadType, user : User) : Promise<ApiResponseJsonType> {
+        const { slug } = payload;
+
+        let searchPost = await this.PostRepo.findOne({ where : { slug } });
+
+        console.log(slug);
+
+        if(!searchPost){
+            return { status : HttpStatus.NOT_FOUND, message : messages.NOT_FOUND, error : messages.NOT_FOUND };
+        }
+
+        searchPost = searchPost.dataValues;
+        searchPost['user'] = (await this.UserRepo.findOne({attributes : ['name', 'email'], where : { id : searchPost.user_id }})).dataValues;
+
+        if(searchPost.user_id !== user.id){
+            await this.PostRepo.update({ views : searchPost.views + 1 }, { where : { id : searchPost.id } });
+        }
+
+        return { status : HttpStatus.OK, message : messages.POST_FETCHED, body : { post : searchPost } };
     }
 }
