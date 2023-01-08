@@ -104,10 +104,10 @@ export class PostService{
         let peopleFollowing : Array<Follow> | Array<number> = await this.FollowRepo.findAll({ where : { follower : user.id } });
         peopleFollowing = peopleFollowing.map((p)=>{ return p.followed });
 
-        let options = { where : { user_id : { [Op.in] : peopleFollowing } }, order : [ ['id', 'desc'] ], limit, offset };
+        let options = { where : { user_id : { [Op.in] : peopleFollowing } }, order : {id : 'desc'}, limit, offset };
 
         if(views){
-            options.order.push(['views', 'desc']);
+            options.order['views'] = 'desc';
         }
         if(posted){
             options.where['createdAt'] = {[Op.gte] : posted}; 
@@ -118,7 +118,7 @@ export class PostService{
 
         console.log(options);
 
-        let posts : Array<Post> = await this.PostRepo.findAll();
+        let posts : Array<Post> = await this.PostRepo.findAll(options);
 
         return { status : HttpStatus.OK, message : "Fetched", body : { posts } };
     }
