@@ -5,7 +5,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { User } from '../modules/user/user.entity';
 
 @Injectable()
-export class LoggerMiddleware implements NestMiddleware {
+export class AuthMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     let auth = req.headers['authorization'];
     if(!auth){
