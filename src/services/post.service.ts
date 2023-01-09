@@ -14,13 +14,15 @@ import { generateSlug } from 'src/utils/general';
 import { Follow } from 'src/modules/follow/follow.entity';
 import { Op, Order } from 'sequelize';
 import { PostedDirection } from 'src/types/post.types';
+import { Like } from 'src/modules/like/like.entity';
 
 @Injectable()
 export class PostService{
     constructor(
         @Inject('POST_REPOSITORY') private PostRepo : typeof Post, 
         @Inject('USER_REPOSITORY') private UserRepo : typeof User,
-        @Inject('FOLLOW_REPOSITORY') private FollowRepo : typeof Follow
+        @Inject('FOLLOW_REPOSITORY') private FollowRepo : typeof Follow,
+        @Inject('LIKE_REPOSITORY') private LikeRepo : typeof Like
     ){}
 
     async createPostService(payload : CreatePostPayloadType, user : User) : Promise<ApiResponseJsonType> {
@@ -90,6 +92,7 @@ export class PostService{
         }
 
         searchPost = searchPost.dataValues;
+        searchPost['likes'] = await this.LikeRepo.count({ where : { post_id : searchPost.id }});
         searchPost['user'] = (await this.UserRepo.findOne({attributes : ['name', 'email', 'id'], where : { id : searchPost.user_id }})).dataValues;
 
         if(searchPost.user_id !== user.id){
@@ -135,6 +138,7 @@ export class PostService{
 
         for(let i = 0; i < posts.length; i++){
             let post = posts[i];
+            posts[i]['views'] = await this.LikeRepo.count({ where : { post_id : post.id } })
             posts[i]['user'] = (await this.UserRepo.findOne({ attributes : ['name', 'email', 'id'], where : { id : post.user_id } })).dataValues
         }
 

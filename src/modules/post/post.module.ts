@@ -5,11 +5,12 @@ import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { PostService } from '../../services/post.service';
 import { PostController } from "src/controllers/post.controller";
 import { AuthMiddleware } from "src/middlewares/auth.middleware";
+import { likeProviders } from "../like/like.providers";
 
 @Module({
     imports : [],
     controllers : [PostController],
-    providers : [PostService, ...usersProviders, ...postProviders, ...followProviders]
+    providers : [PostService, ...likeProviders, ...usersProviders, ...postProviders, ...followProviders]
 })
 
 export class PostModule implements NestModule {
