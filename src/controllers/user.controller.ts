@@ -4,7 +4,9 @@ import { SignupPayloadType, LoginPayloadType } from '../types/user.dto';
 import { signupSchema, loginSchema } from "../utils/schemas/user.schema";
 import { UserService } from '../services/user.service';
 import { Response } from "express";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("Auth")
 @Controller('/user')
 export class UserController{
     constructor(private userService : UserService){}

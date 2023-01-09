@@ -4,7 +4,9 @@ import { likeUnlikeSchema } from "src/utils/schemas/like.schemas";
 import { Validator } from "src/utils/validator";
 import { Request, Response } from 'express';
 import { LikeService } from "src/services/like.service";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("Like")
 @Controller('/like')
 export class LikeController{
     constructor(private likeService : LikeService){}
