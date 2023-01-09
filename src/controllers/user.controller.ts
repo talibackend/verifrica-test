@@ -1,6 +1,6 @@
 import { Controller, Post, UsePipes, Body, Res } from "@nestjs/common";
 import { Validator } from '../utils/validator';
-import { SignupPayloadType, LoginPayloadType } from '../types/user.types';
+import { SignupPayloadType, LoginPayloadType } from '../types/user.dto';
 import { signupSchema, loginSchema } from "../utils/schemas/user.schema";
 import { UserService } from '../services/user.service';
 import { Response } from "express";

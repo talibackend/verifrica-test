@@ -7,13 +7,13 @@ import {
     DeletePostPayloadType, 
     GetPostPayloadType, 
     GetPostsPayloadType 
-} from 'src/types/post.types';
-import { ApiResponseJsonType } from 'src/types/api.types';
+} from 'src/types/post.dto';
+import { ApiResponseJsonType } from 'src/types/api.dto';
 import { messages } from 'src/utils/consts';
 import { generateSlug } from 'src/utils/general';
 import { Follow } from 'src/modules/follow/follow.entity';
 import { Op, Order } from 'sequelize';
-import { PostedDirection } from 'src/types/post.types';
+import { PostedDirection } from 'src/types/post.dto';
 import { Like } from 'src/modules/like/like.entity';
 
 @Injectable()

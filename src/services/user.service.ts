@@ -1,7 +1,7 @@
 import { Injectable, Inject, HttpStatus } from '@nestjs/common';
 import { User } from '../modules/user/user.entity';
-import { SignupPayloadType, LoginPayloadType } from '../types/user.types';
-import { ApiResponseJsonType } from '../types/api.types';
+import { SignupPayloadType, LoginPayloadType } from '../types/user.dto';
+import { ApiResponseJsonType } from '../types/api.dto';
 import { messages } from '../utils/consts';
 import { encrypt, decrypt, generate } from '../utils/auth';
 

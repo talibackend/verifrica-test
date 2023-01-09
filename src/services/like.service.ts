@@ -2,8 +2,8 @@ import { Inject, Injectable, HttpStatus } from "@nestjs/common";
 import { Like } from "src/modules/like/like.entity";
 import { Post } from "src/modules/post/post.entity";
 import { User } from "src/modules/user/user.entity";
-import { ApiResponseJsonType } from "src/types/api.types";
-import { LikeUnlikePayloadType } from "src/types/like.types";
+import { ApiResponseJsonType } from "src/types/api.dto";
+import { LikeUnlikePayloadType } from "src/types/like.dto";
 import { messages } from "src/utils/consts";
 
 

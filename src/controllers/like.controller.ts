@@ -1,5 +1,5 @@
 import { Controller, Post, UsePipes, Body, Req, Res } from "@nestjs/common";
-import { LikeUnlikePayloadType } from "src/types/like.types";
+import { LikeUnlikePayloadType } from "src/types/like.dto";
 import { likeUnlikeSchema } from "src/utils/schemas/like.schemas";
 import { Validator } from "src/utils/validator";
 import { Request, Response } from 'express';

@@ -3,7 +3,7 @@ import { FollowService } from '../services/follow.service';
 import { Response, Request } from 'express';
 import { Validator } from '../utils/validator';
 import { followSchema } from '../utils/schemas/follow.schemas';
-import { FollowPayloadType } from '../types/follow.types';
+import { FollowPayloadType } from '../types/follow.dto';
 
 @Controller('/follow')
 export class FollowController{

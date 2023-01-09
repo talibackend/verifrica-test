@@ -6,7 +6,7 @@ import {
     DeletePostPayloadType, 
     GetPostPayloadType,
     GetPostsPayloadType
-} from "src/types/post.types";
+} from "src/types/post.dto";
 import { 
     createPostSchema, 
     editPostSchema, 

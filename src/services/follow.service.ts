@@ -1,8 +1,8 @@
 import { Inject, Injectable, HttpStatus } from "@nestjs/common";
 import { Follow } from '../modules/follow/follow.entity';
 import { User } from '../modules/user/user.entity';
-import { FollowPayloadType } from '../types/follow.types';
-import { ApiResponseJsonType } from '../types/api.types';
+import { FollowPayloadType } from '../types/follow.dto';
+import { ApiResponseJsonType } from '../types/api.dto';
 import { messages } from "src/utils/consts";
 
 @Injectable()
