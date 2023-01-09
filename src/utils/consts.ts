@@ -14,5 +14,7 @@ export const messages = {
     POST_EDITED : "Post has been successfully updated.",
     POST_DELETED : "Post has been successfully deleted.",
     NOT_FOUND : "Resource not found.",
-    POST_FETCHED : "Post has been successfully fetched."
+    POST_FETCHED : "Post has been successfully fetched.",
+    POST_LIKED : "Post has been liked.",
+    POST_UNLIKED : "Post has been unliked."
 }

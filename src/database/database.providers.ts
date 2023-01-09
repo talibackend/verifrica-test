@@ -17,7 +17,7 @@ export const databaseProviders = [
         password: env.PG_PASSWORD,
         database: env.PG_DB,
       });
-      sequelize.addModels([User, Follow, Post]);
+      sequelize.addModels([User, Follow, Post, Like]);
       await sequelize.sync({ alter : true });
       return sequelize;
     },
