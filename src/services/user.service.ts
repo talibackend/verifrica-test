@@ -47,7 +47,7 @@ export class UserService {
         return {
             status: HttpStatus.OK, message: messages.LOGIN_SUCCESSFUL, body:
             {
-                name: searchUser.name, email, auth: {
+                name: searchUser.name, email, id : searchUser.id, auth: {
                     type : "bearer",
                     token : token
                 }
