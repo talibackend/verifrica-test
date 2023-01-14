@@ -16,10 +16,11 @@ import {
 } from "src/utils/schemas/post.schemas";
 import { Validator } from 'src/utils/validator';
 import { Request, Response } from 'express';
-import { ApiTags } from "@nestjs/swagger";
+import { ApiTags, ApiBearerAuth } from "@nestjs/swagger";
 
 @ApiTags("Post")
 @Controller('/post')
+@ApiBearerAuth()
 export class PostController {
     constructor(private postService : PostService){}
 

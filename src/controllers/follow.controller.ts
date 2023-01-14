@@ -4,9 +4,10 @@ import { Response, Request } from 'express';
 import { Validator } from '../utils/validator';
 import { followSchema } from '../utils/schemas/follow.schemas';
 import { FollowPayloadType } from '../types/follow.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags("Following")
+@ApiBearerAuth()
 @Controller('/follow')
 export class FollowController{
     constructor (private followService : FollowService) {}
